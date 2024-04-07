@@ -1,6 +1,7 @@
-# Library-Management-system
+# Gurukul-LMS
 
-A library management software where librarian can add/view/delete books and student can view/issue/return books build on java swing and SQL database.
+A library management software which gives all library related Operation where librarian can add/view/delete books and student can view/issue/return books.
+This Desktop Applicaton builds on java Programming Language where we used the swing Framework and we used the Oracle 12C Database for stored the Data and for Operation with Database we used the SQL query. Also used the JDBC(Java Database Connectivity) for stablished the Connection between the Java Application and Database.
 
 Demo Pics---
 
