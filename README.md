@@ -4,10 +4,10 @@ A library management software where librarian can add/view/delete books and stud
 
 Demo Pics---
 
-![](https://github.com/Divyansh6799/Library-Management-system/blob/master/demo/Screenshot%20(36).png)
+![](https://github.com/Divyansh6799/Gurukul-LMS/blob/master/demo/Screenshot%20(36).png)
 
-![](https://github.com/Divyansh6799/Library-Management-system/blob/master/demo/Screenshot%20(37).png)
+![](https://github.com/Divyansh6799/Gurukul-LMS/blob/master/demo/Screenshot%20(37).png)
 
-![](https://github.com/Divyansh6799/Library-Management-system/blob/master/demo/Screenshot%20(38).png)
+![](https://github.com/Divyansh6799/Gurukul-LMS/blob/master/demo/Screenshot%20(38).png)
 
-![](https://github.com/Divyansh6799/Library-Management-system/blob/master/demo/Screenshot%20(39).png)
+![](https://github.com/Divyansh6799/Gurukul-LMS/blob/master/demo/Screenshot%20(39).png)
