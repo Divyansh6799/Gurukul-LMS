@@ -1,0 +1,107 @@
+CREATE TABLE ADMIN_LOGIN("USERNAME" VARCHAR2(50 BYTE),"PASSWORD" NUMBER,"CODE" NUMBER)
+CREATE TABLE BOOKS("BOOK_ID" NUMBER(*,0),"BOOK_NAME" VARCHAR2(50 BYTE), "AUTHOR" VARCHAR2(20 BYTE), "PUBLICATION" VARCHAR2(50 BYTE), 
+	"EDITION" VARCHAR2(20 BYTE), 
+	"TOTAL_BOOKS" NUMBER, 
+	"COURSE" VARCHAR2(20 BYTE), 
+	"YEAR" NUMBER, 
+	"SEMESTER" NUMBER, 
+	"BRANCH" VARCHAR2(20 BYTE)
+)
+
+CREATE TABLE STUDENT
+   (	"ROLL_NUMBER" NUMBER, 
+	"FIRST_NAME" VARCHAR2(50 BYTE), 
+	"LAST_NAME" VARCHAR2(50 BYTE), 
+	"GENDER" VARCHAR2(20 BYTE), 
+	"COURSE" VARCHAR2(20 BYTE), 
+	"BRANCH" VARCHAR2(20 BYTE), 
+	"YEAR" NUMBER, 
+	"SEMESTER" NUMBER, 
+	"CONTACT" NUMBER, 
+	"MAIL_ID" VARCHAR2(50 BYTE)
+   )
+   
+CREATE TABLE ISSUEBOOKS 
+   (	"ROLL_NUMBER" NUMBER, 
+	"NAME" VARCHAR2(50 BYTE), 
+	"BOOK_ID" NUMBER(*,0), 
+	"BOOK_NAME" VARCHAR2(50 BYTE), 
+	"AUTHOR" VARCHAR2(50 BYTE), 
+	"EDITION" NUMBER, 
+	"DATE_OF_ISSUE" DATE, 
+	"DATE_OF_RETURN" DATE, 
+	"RETURN_STATUS" VARCHAR2(20 BYTE), 
+	"CONTACT" NUMBER, 
+	"TR_NO" NUMBER
+   )
+   
+CREATE TABLE LOGIN
+   (	"USERNAME" VARCHAR2(20 BYTE), 
+	"PASSWORD" VARCHAR2(20 BYTE), 
+	"ROLL_NUMBER" NUMBER, 
+	"SECUIRTY_QUES" VARCHAR2(50 BYTE), 
+	"SECUIRTY_ANS" VARCHAR2(50 BYTE)
+)
+   
+   
+CREATE OR REPLACE PROCEDURE "SIGNUP" (
+ROLL_NUMBER NUMBER,
+FIRST_NAME VARCHAR2,
+LAST_NAME VARCHAR2,
+GENDER VARCHAR2,
+COURSE VARCHAR2,
+BRANCH VARCHAR2,
+YEAR NUMBER,
+SEMESTER NUMBER,
+CONTACT NUMBER,
+MAIL_ID VARCHAR2,
+USERNAME VARCHAR2,
+PASSWORD VARCHAR2,
+SECUIRTY_QUES VARCHAR2,
+SECUIRTY_ANS VARCHAR2
+)
+AS
+BEGIN
+INSERT INTO STUDENT (ROLL_NUMBER,FIRST_NAME,LAST_NAME,GENDER,COURSE,BRANCH,YEAR,SEMESTER,CONTACT,MAIL_ID)
+VALUES (ROLL_NUMBER,FIRST_NAME,LAST_NAME,GENDER,COURSE,BRANCH,YEAR,SEMESTER,CONTACT,MAIL_ID);
+INSERT INTO LOGIN (USERNAME,PASSWORD,ROLL_NUMBER,SECUIRTY_QUES,SECUIRTY_ANS)
+VALUES (USERNAME,PASSWORD,ROLL_NUMBER,SECUIRTY_QUES,SECUIRTY_ANS);
+END signup;
+
+
+CREATE OR REPLACE PROCEDURE "RETURNPROC" (
+r_tr_no number,
+r_book_id number,
+r_roll_number number,
+r_date_of_return date,
+r_return_status varchar2
+)
+as
+begin
+UPDATE ISSUEBOOKS SET DATE_OF_RETURN=r_date_of_return,RETURN_STATUS=r_return_status, tr_no=r_tr_no WHERE ROLL_NUMBER=r_roll_number AND BOOK_ID=r_book_id  AND RETURN_STATUS='NO';
+commit;
+update books set total_books=total_books+1 where book_id=r_book_id;
+commit;
+END RETURNPROC;
+
+
+CREATE OR REPLACE PROCEDURE "ISSUEPROC" (
+i_tr_no number,
+i_book_id number,
+i_roll_number number,
+i_name varchar2,
+i_book_name varchar2,
+i_author varchar2,
+i_edition number,
+i_date_of_issue date,
+i_date_of_return date,
+i_return_status varchar2,
+i_contact number
+)
+as
+begin
+insert into issuebooks (roll_number,name,book_id,book_name,author,edition,date_of_issue,date_of_return,return_status,contact,tr_no)
+values (i_roll_number,i_name,i_book_id,i_book_name,i_author,i_edition,i_date_of_issue,i_date_of_return,i_return_status,i_contact,i_tr_no);
+update books set total_books=total_books-1 where book_id=i_book_id;
+commit;
+end issueproc;
